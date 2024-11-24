@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthForm from '../../components/Form'
 import axios from 'axios'
@@ -7,6 +7,24 @@ export default function AddCuisine() {
     const navigate = useNavigate()
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        fetchCategories()
+    }, [])
+
+    async function fetchCategories() {
+        try {
+            const { data } = await axios.get('https://h8-phase2-gc.vercel.app/apis/restaurant-app/categories', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.access_token}`
+                }
+            })
+            setCategories(data)
+        } catch (error) {
+            console.error('Fetch categories error:', error)
+        }
+    }
 
     async function handleSubmit(formData) {
         setError('')
@@ -43,7 +61,15 @@ export default function AddCuisine() {
                 { label: 'Deskripsi', name: 'description', type: 'text' },
                 { label: 'Harga', name: 'price', type: 'number' },
                 { label: 'URL Gambar', name: 'imgUrl', type: 'text' },
-                { label: 'Category ID', name: 'categoryId', type: 'number' }
+                { 
+                    label: 'Category', 
+                    name: 'categoryId', 
+                    type: 'select',
+                    options: categories.map(cat => ({
+                        label: cat.name,
+                        value: cat.id
+                    }))
+                }
             ]}
             handleSubmit={handleSubmit}
             error={error}
