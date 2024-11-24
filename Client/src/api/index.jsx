@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://h8-phase2-gc.vercel.app/apis/pub/restaurant-app'
