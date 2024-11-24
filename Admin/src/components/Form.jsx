@@ -42,14 +42,30 @@ export default function AuthForm({ title, subtitle, fields, handleSubmit, error,
                             <label className="block text-sm font-medium text-white/90 mb-1">
                                 {field.label}
                             </label>
-                            <input 
-                                type={field.type}
-                                name={field.name}
-                                value={formData[field.name] || ''}
-                                onChange={handleInputChange}
-                                placeholder={`Masukkan ${field.label.toLowerCase()}`}
-                                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white"
-                            />
+                            {field.type === 'select' ? (
+                                <select
+                                    name={field.name}
+                                    value={formData[field.name] || ''}
+                                    onChange={handleInputChange}
+                                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white"
+                                >
+                                    <option value="">Pilih {field.label.toLowerCase()}</option>
+                                    {field.options?.map((option, i) => (
+                                        <option key={i} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <input 
+                                    type={field.type}
+                                    name={field.name}
+                                    value={formData[field.name] || ''}
+                                    onChange={handleInputChange}
+                                    placeholder={`Masukkan ${field.label.toLowerCase()}`}
+                                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white"
+                                />
+                            )}
                         </div>
                     ))}
 

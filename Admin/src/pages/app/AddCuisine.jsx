@@ -20,9 +20,10 @@ export default function AddCuisine() {
                     Authorization: `Bearer ${localStorage.access_token}`
                 }
             })
-            setCategories(data)
+            setCategories(data.data || [])
         } catch (error) {
             console.error('Fetch categories error:', error)
+            setCategories([])
         }
     }
 

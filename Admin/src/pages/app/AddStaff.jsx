@@ -56,6 +56,16 @@ export default function AddStaff() {
                     label: 'Password',
                     type: 'password',
                     name: 'password'
+                },
+                {
+                    label: 'Phone Number',
+                    type: 'text',
+                    name: 'phoneNumber'
+                },
+                {
+                    label: 'Address',
+                    type: 'text',
+                    name: 'address'
                 }
             ]}
             handleSubmit={handleSubmit}
