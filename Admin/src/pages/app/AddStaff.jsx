@@ -10,10 +10,12 @@ export default function AddStaff() {
     async function handleSubmit(formData) {
         try {
             setIsLoading(true)
-            await axios.post('https://h8-phase2-gc.vercel.app/apis/register', {
-                name: formData.name,
+            await axios.post('https://h8-phase2-gc.vercel.app/apis/add-user', {
+                username: formData.username,
                 email: formData.email,
-                password: formData.password
+                password: formData.password,
+                phoneNumber: formData.phoneNumber,
+                address: formData.address
             }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.access_token}`
@@ -41,9 +43,9 @@ export default function AddStaff() {
             subtitle="Tambahkan staff baru"
             fields={[
                 {
-                    label: 'Nama',
+                    label: 'Username',
                     type: 'text',
-                    name: 'name'
+                    name: 'username'
                 },
                 {
                     label: 'Email',
